@@ -1,8 +1,16 @@
+let apiKey = ''
+const getApiKey = async () => {
+  const res = await fetch('http://localhost:8081/key')
+  const api = await res.json()
+  apiKey =  api.key
+} 
+
 export function checkUrl(url) {
     const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
     if(url.match(urlRegex)) {
       fetchData(url)
       retrieveData()
+      getApiKey()
     } else if(url=='') { 
         alert('input is required')
     } else {
@@ -11,7 +19,7 @@ export function checkUrl(url) {
 }
 
 const fetchData = (url) => {
-  fetch(`https://api.meaningcloud.com/sentiment-2.1?key=b0bc2d3f041fd9932fa9964b3b362e85&&url=${url}&lang=en`)
+  fetch(`https://api.meaningcloud.com/sentiment-2.1?key=${apiKey}&&url=${url}&lang=en`)
   .then(response => response.json())
   .then(data => postUrl('http://localhost:8081/checkUrl', data))
 }
