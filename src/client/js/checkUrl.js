@@ -5,7 +5,14 @@ const getApiKey = async () => {
   apiKey =  api.key
 } 
 
-export function checkUrl(url) {
+export function check (url) {
+  const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+  if(url.match(urlRegex)) {
+    return true
+  }
+}
+
+   export function checkUrl(url) {
     const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
     if(url.match(urlRegex)) {
       getApiKey()
